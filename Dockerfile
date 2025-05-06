@@ -18,4 +18,4 @@ ADD /webapp/target/webapp.war /usr/local/tomcat/webapps/webapp.war
 EXPOSE 8080
 
 # Start Tomcat
-CMD ["\usr\local\tomcat\bin\catalina.sh", "run"]
+CMD ["/usr/local/tomcat/bin/catalina.sh", "run"]
