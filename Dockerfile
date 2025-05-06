@@ -1,9 +1,6 @@
 FROM tomcat:latest
 MAINTAINER sai
 
-# Remove default webapps
-RUN rm -rf /usr/local/tomcat/webapps/*
-
 # Copy the packaged war file into tomcat webapps directory
 COPY webapp.war .
 ADD webapp.war /usr/local/tomcat/webapps/webapp.war
