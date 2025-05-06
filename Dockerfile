@@ -3,7 +3,7 @@ FROM ubuntu:latest
 # Install required packages
 RUN apt-get update && \
     apt-get install maven -y
-    apt-get install wget
+    apt install wget
 
 # Download Tomcat
 
