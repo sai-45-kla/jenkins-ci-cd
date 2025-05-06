@@ -16,8 +16,8 @@ RUN tar -xzf apache-tomcat-${TOMCAT_VERSION}.tar.gz && \
 # Set environment variables
 ENV CATALINA_HOME /opt/tomcat
 ENV PATH $CATALINA_HOME/bin:$PATH
-WORKDIR /var/lib/jenkins/workspace/pipeline/webapp/target/webapp.war
-ADD webapp.war /usr/local/tomcat/webapps/webapp.war
+WORKDIR /var/lib/jenkins/workspace/pipeline
+ADD /webapp/target/webapp.war /usr/local/tomcat/webapps/webapp.war
 # Expose port
 EXPOSE 8080
 
