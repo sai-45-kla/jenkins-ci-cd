@@ -2,20 +2,16 @@ FROM ubuntu:latest
 
 # Install required packages
 RUN apt-get update && \
-    apt-get install -y openjdk-11-jdk wget && \
-    apt-get clean
+    apt-get install maven -y
+    apt-get install wget
 
 # Download Tomcat
-ENV TOMCAT_VERSION 9.0.88
-RUN wget https://archive.apache.org/dist/tomcat/tomcat-9/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz
+
+RUN wget https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.104/bin/apache-tomcat-9.0.104.tar.gz
 
 # Extract Tomcat
-RUN tar -xzf apache-tomcat-${TOMCAT_VERSION}.tar.gz && \
-    mv apache-tomcat-${TOMCAT_VERSION} /opt/tomcat
+RUN tar -xzvf apache-tomcat-9.0.104.tar.gz
 
-# Set environment variables
-ENV CATALINA_HOME /opt/tomcat
-ENV PATH $CATALINA_HOME/bin:$PATH
 WORKDIR /var/lib/jenkins/workspace/pipeline
 ADD /webapp/target/webapp.war /usr/local/tomcat/webapps/webapp.war
 # Expose port
