@@ -1,21 +1,17 @@
-FROM ubuntu:latest
+FROM tomcat:latest
+MAINTAINER sai
 
-# Install required packages
-RUN apt-get update
-RUN apt-get install maven -y
-RUN apt-get install wget -y
+# Remove default webapps
+RUN rm -rf /usr/local/tomcat/webapps/*
 
-# Download Tomcat
+# Copy the packaged war file into tomcat webapps directory
+COPY /var/lib/jenkins/workspace/pipeline/webapp .
+COPY ./target/web.war /usr/local/tomcat/webapps/webapp.war
 
-RUN mkdir /usr/local/tomcat
-RUN wget https://archive.apache.org/dist/tomcat/tomcat-9/v9.0.22/bin/apache-tomcat-9.0.22.tar.gz -O /tmp/tomcat.tar.gz
-RUN cd /tmp && tar xvfz tomcat.tar.gz
-RUN cp -Rv /tmp/apache-tomcat-9.0.22/ /usr/local/tomcat/
-ADD tomcat-users.xml /usr/local/tomcat/conf/
-ADD context.xml /usr/local/tomcat/webapps/host-manager/META-INF/
-WORKDIR /var/lib/jenkins/workspace/pipeline
-ADD /webapp/target/webapp.war /usr/local/tomcat/webapps/
-
+# Expose port 8080
 EXPOSE 8082
-CMD ["/usr/local/tomcat/bin/catalina.sh", "run"]
+
+# Start Tomcat
+CMD ["catalina.sh", "run"]
+
 
