@@ -3,6 +3,6 @@ services:
   app:
     image: saitejachintakunta/mvnapp:v1
     ports:
-      - "8082:80"
+      - "8082:8080"
     deploy:
       replicas: 3
